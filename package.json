@@ -1,0 +1,46 @@
+{
+  "name": "blog_api",
+  "version": "1.0.0",
+  "description": "A simple API for creating and fetching blog posts.",
+  "keywords": [
+    "RESTful_APIs",
+    "APIs"
+  ],
+  "homepage": "https://github.com/RogueGrim/blog_api#readme",
+  "bugs": {
+    "url": "https://github.com/RogueGrim/blog_api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RogueGrim/blog_api.git"
+  },
+  "author": "rogueGrim",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "@quixo3/prisma-session-store": "^3.1.21",
+    "@types/pg": "^8.23.1",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "multer": "^2.2.0",
+    "passport": "^0.7.0",
+    "pg": "^8.23.0",
+    "prisma": "^7.9.1"
+  },
+  "allowScripts": {
+    "prisma@7.9.1": true,
+    "@types/pg@8.23.1": true,
+    "@prisma/client@7.9.1": true,
+    "@prisma/adapter-pg@7.9.1": true,
+    "dotenv@17.4.2": true,
+    "multer@2.2.0": true
+  }
+}
