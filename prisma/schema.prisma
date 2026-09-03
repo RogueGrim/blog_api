@@ -15,7 +15,7 @@ datasource db {
 // Main user model holding user credentials
 model User {
   id            Int             @id @default(autoincrement())
-  username      String          
+  username      String          @unique
   password      String
   userDetails   UserDetails?   //each user can only have a single detail model
   posts         Post[]        //each user can own multiple posts
