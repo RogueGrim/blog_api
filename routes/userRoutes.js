@@ -1,6 +1,6 @@
 import express from "express";
 import { passport } from "../middleware/authentication.js";
-import jwt from "jsonwebtoken";
+import { generateJwt } from "../controllers/userController.js";
 
 const userRouter = express.Router()
 
@@ -8,21 +8,16 @@ userRouter.post('/login',
     passport.authenticate("local", {
         session: false,
     }),
-    (req, res) => {
-        const token = jwt.sign(
-            {
-                userId: req.user.id,
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "1h",
-            }
-        ) 
+    generateJwt
+)
 
-        res.json({
-            message: "Login Sucessful!",
-            token,
-        })
+userRouter.post('/logout',
+    (req, res, next) => {
+       res.clearCookie("token");
+
+       res.json({
+        message: "logged out"
+       })
     }
 )
 
