@@ -1,6 +1,6 @@
 import express from "express";
 import { passport } from "../middleware/authentication.js";
-import { generateJwt } from "../controllers/userController.js";
+import { login, logout } from "../controllers/userController.js";
 
 const userRouter = express.Router()
 
@@ -8,19 +8,9 @@ userRouter.post('/login',
     passport.authenticate("local", {
         session: false,
     }),
-    generateJwt
+    login
 )
 
-userRouter.post('/logout',
-    (req, res, next) => {
-       res.clearCookie("token");
-
-       res.json({
-        message: "logged out"
-       })
-    }
-)
-
-userRouter.get("/test", (req, res) => res.send("Hello World"))
+userRouter.post('/logout', logout)
 
 export { userRouter }

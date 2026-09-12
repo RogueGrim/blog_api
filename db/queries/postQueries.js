@@ -15,7 +15,7 @@ async function createPost(data) {
 }
 
 async function findPostbyId(data) {
-    const post = prisma.post.findUnique({
+    const post = await prisma.post.findUnique({
         where: {
             id: data.postId
         }
@@ -25,7 +25,7 @@ async function findPostbyId(data) {
 }
 
 async function findPostsbyAuthorId(data) {
-    const post = prisma.post.findMany({
+    const post = await prisma.post.findMany({
         where: {
             authorId: data.authorId
         }
@@ -35,7 +35,7 @@ async function findPostsbyAuthorId(data) {
 }
 
 async function deletePostById(data) {
-    prisma.post.delete({
+    await prisma.post.delete({
         where: {
             id: data.postId
         }
@@ -43,7 +43,7 @@ async function deletePostById(data) {
 }
 
 async function deletePostsByAuthorId(data) {
-    prisma.post.deleteMany({
+    await prisma.post.deleteMany({
         where: {
             authorId: data.authorId
         }
@@ -51,7 +51,7 @@ async function deletePostsByAuthorId(data) {
 }
 
 async function updatePost(data) {
-    prisma.post.update({
+    await prisma.post.update({
         where: {
             id: data.postId
         },

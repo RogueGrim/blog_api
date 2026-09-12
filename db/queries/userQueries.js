@@ -1,10 +1,13 @@
 import { prisma } from "../../lib/prisma.js"
+import bcrypt from "bcryptjs";
 
 async function createUser(data) {
+    const hashedPass =  await bcrypt.hash(data.password, 10)
+
     await prisma.user.create({
         data: {
             username: data.username,
-            password: data.password
+            password: hashedPass
         },
         include: {
             userDetails: true,
