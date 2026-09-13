@@ -13,7 +13,8 @@ async function createComment(data) {
 async function findCommentById(data) {
     const comment = await prisma.comment.findUnique({
         where: {
-            id: data.commentId
+            id: data.commentId,
+            postId: data.postId
         }
     })
 
@@ -43,7 +44,8 @@ async function findCommentsByPostId(data) {
 async function deleteComment(data) {
     await prisma.comment.delete({
         where: {
-            id: data.id
+            id: data.CommentId,
+            postId: data.postId
         }
     })
 }
@@ -67,7 +69,8 @@ async function deleteCommentsByPostId(data) {
 async function updateComment(data) {
     await prisma.comment.update({
         where: {
-            id: data.postId
+            id: data.postId,
+            authorId: data.authorId
         },
         data: {
             content: data?.content

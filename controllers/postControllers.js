@@ -43,7 +43,7 @@ async function deleteAllPosts(req, res, next) {
     }
 }
 
- async function updateExistingPost(req, res, next ) {
+async function updateExistingPost(req, res, next ) {
     const data = {
         postId: req.params.postId,
         title: req.body?.title,
@@ -58,11 +58,37 @@ async function deleteAllPosts(req, res, next) {
     }catch(err) {
         next(err)
     }
- }
+}
 
- export {
+async function findPost(req, res, next) {
+    try{
+        const post = await db.findPostbyId({postId: req.params.postId})
+
+        res.status(200).json({
+            post: post[0]
+        })
+    } catch(err){
+        next(err)
+    }
+}
+
+async function findAllPosts(req, res, next) {
+    try{
+        const posts = await db.deletePostsByAuthorId({authorId: req.params.authorId})
+
+        res.status(200).json({
+            posts: posts
+        })
+    }catch(err) {
+        next(err)
+    }
+}
+
+export {
     createNewPost,
     deletePost,
     deleteAllPosts,
-    updateExistingPost
- }
+    updateExistingPost,
+    findPost,
+    findAllPosts
+}
