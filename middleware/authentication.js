@@ -36,9 +36,21 @@ passport.use(
     })
 )
 
+function cookieExtractor(req) {
+
+    let token = null
+
+    if(req.cookies) {
+        token = req.cookies['token']
+    }
+
+    return token
+
+}
 passport.use(
     new JwtStrategy({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: cookieExtractor, 
+        //ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: process.env.JWT_SECRET,
     }, async (payload, done) => {
         try{ 

@@ -20,6 +20,7 @@ async function login(req, res, next ) {
 
     res.json({
         message: "Login Sucessful!",
+        token: token
     })
 }
 
@@ -49,11 +50,11 @@ async function createNewUser(req, res, next) {
 
 async function createUserDetails(req, res, next) {
     const data = {
-        userId: req.params.userId,
+        userId: parseInt(req.params.userId),
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
-        phone: req.body?.phone
+        phone: req.body.phone
     }
 
     try {
@@ -66,9 +67,27 @@ async function createUserDetails(req, res, next) {
     }
 }
 
+async function findUser(req, res, next) {
+    try{
+        const data = {
+            userId: parseInt(req.params.userId)
+        }
+        const user = await db.findUserById(data)
+        if(!user){
+            return next({message: "User not found"})
+        }
+        res.status(200).json({
+            user: user
+        })
+    }catch(err) {
+        next(err)
+    }
+}
+
 export {
     login,
     logout,
     createNewUser,
-    createUserDetails
+    createUserDetails,
+    findUser
 }

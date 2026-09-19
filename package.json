@@ -26,6 +26,7 @@
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
@@ -46,6 +47,7 @@
     "multer@2.2.0": true,
     "passport-jwt@4.0.1": true,
     "jsonwebtoken@9.0.3": true,
-    "passport-local@1.0.0": true
+    "passport-local@1.0.0": true,
+    "cookie-parser@1.4.7": true
   }
 }
