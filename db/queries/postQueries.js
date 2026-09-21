@@ -14,6 +14,12 @@ async function createPost(data) {
     })
 }
 
+async function findAllPosts(data) {
+    const posts = await prisma.post.findMany()
+
+    return posts
+}
+
 async function findPostbyId(data) {
     const post = await prisma.post.findUnique({
         where: {
@@ -66,6 +72,7 @@ async function updatePost(data) {
 export {
     createPost,
     findPostbyId,
+    findAllPosts,
     findPostsbyAuthorId,
     deletePostById,
     deletePostsByAuthorId,

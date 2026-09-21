@@ -1,7 +1,9 @@
 import * as db from "../db/queries/userQueries.js";
 import jwt from "jsonwebtoken";
 
+//login function to sign and serve jwt
 async function login(req, res, next ) {
+    //generate a jwt token
     const token = jwt.sign(
         {
             userId: req.user.id,
@@ -11,7 +13,7 @@ async function login(req, res, next ) {
             expiresIn: "1h",
         }
     )
-
+    //serve the token in a cookie
     res.cookie("token", token, {
         httpOnly: true,
         secure: true,
@@ -24,6 +26,7 @@ async function login(req, res, next ) {
     })
 }
 
+//logout function clears the token cookie
 async function logout(req, res, next) {
     res.clearCookie("token");
 
@@ -84,10 +87,29 @@ async function findUser(req, res, next) {
     }
 }
 
+async function findUserDetails(req, res, next) {
+    try{
+        const data = {
+            userId: parseInt(req.params.userId)
+        }
+        const user = await db.findUserDetails(data)
+
+        if(!user){
+            return next({message: "User not found"})
+        }
+        res.status(200).json({
+            userDetails: user
+        })
+    }catch (err) {
+        next(err)
+    }
+}
+
 export {
     login,
     logout,
     createNewUser,
     createUserDetails,
-    findUser
+    findUser,
+    findUserDetails
 }

@@ -39,8 +39,19 @@ async function findUserById(data) {
     return user
 }
 
+async function findUserDetails(data) {
+    const user = await prisma.userDetails.findFirst({
+        where: {
+            userId: data.userId
+        }
+    })
+
+    return user
+}
+
 export { 
     createUser,
     createUserDetails,
-    findUserById
+    findUserById,
+    findUserDetails
 }

@@ -74,7 +74,7 @@ async function findPost(req, res, next) {
 
 async function findAllPosts(req, res, next) {
     try{
-        const posts = await db.deletePostsByAuthorId({authorId: req.params.authorId})
+        const posts = await db.findAllPosts()
 
         res.status(200).json({
             posts: posts
