@@ -2,6 +2,10 @@ import "dotenv/config"
 import express from "express"
 import cookieParser from "cookie-parser";
 import { userRouter } from "./routes/userRoutes.js";
+import { userPostRouter } from "./routes/userPostRoutes.js";
+import { userCommentRouter } from "./routes/userCommentRoutes.js";
+import { postRouter } from "./routes/postRoutes.js";
+import { commentRouter } from "./routes/commentRoutes.js";
 
 const app = express()
 
@@ -18,6 +22,18 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
 app.use("/", userRouter)
+
+//routes for all posts
+app.use('/posts', postRouter)
+
+//routes for posts related to user
+app.use("/users/:userId/posts", userPostRouter)
+
+//routes for all comments
+app.use("/comments", commentRouter)
+
+//routes for comments of user under a post
+app.use("/users/:userId/posts/:postId/comments", userCommentRouter)
 
 app.use((err, req, res, next) => {
     res.status(500).json({
