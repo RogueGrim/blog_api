@@ -69,7 +69,7 @@ async function deleteCommentsByPostId(data) {
 async function updateComment(data) {
     await prisma.comment.update({
         where: {
-            id: data.postId,
+            id: data.commentId,
             authorId: data.authorId
         },
         data: {

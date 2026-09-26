@@ -33,7 +33,7 @@ async function deletePost(req, res, next) {
 
 async function deleteAllPosts(req, res, next) {
     try{
-        await db.deletePostsByAuthorId({postId: req.params.authorId})
+        await db.deletePostsByAuthorId({authorId: req.params.authorId})
 
         res.status(200).json({
             message: "Posts Deleted"
@@ -65,7 +65,7 @@ async function findPost(req, res, next) {
         const post = await db.findPostbyId({postId: req.params.postId})
 
         res.status(200).json({
-            post: post[0]
+            post: post
         })
     } catch(err){
         next(err)

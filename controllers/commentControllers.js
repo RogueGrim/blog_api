@@ -91,7 +91,7 @@ async function findComment(req, res, next) {
         const comment = await db.findCommentById(data)
 
         res.status(200).json({
-            comment: comment[0]
+            comment: comment
         })
     }catch(err){
         next(err)

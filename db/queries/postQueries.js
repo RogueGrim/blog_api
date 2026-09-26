@@ -6,7 +6,7 @@ async function createPost(data) {
         data: {
             title: data.title,
             content: data.content,
-            authorId: data.userId,
+            authorId: data.authorId,
         },
         include: {
             comments: true
