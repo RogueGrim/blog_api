@@ -5,7 +5,7 @@ async function createNewPost(req, res, next) {
     const data = {
         title: req.body.title,
         content: req.body.content,
-        authorId: req.params.authorId
+        authorId: req.user.id
     }
 
     try{
@@ -20,8 +20,12 @@ async function createNewPost(req, res, next) {
 }
 
 async function deletePost(req, res, next) {
+
+    const data = {
+        postId: parseInt(req.params.postId)
+    }
     try{
-        await db.deletePostById({postId: req.params.postId})
+        await db.deletePostById(data)
 
         res.status(200).json({
             message: "Post Deleted"
@@ -32,8 +36,12 @@ async function deletePost(req, res, next) {
 }
 
 async function deleteAllPosts(req, res, next) {
+
+    const data = {
+        authorId: parseInt(req.params.userId)
+    }
     try{
-        await db.deletePostsByAuthorId({authorId: req.params.authorId})
+        await db.deletePostsByAuthorId(data)
 
         res.status(200).json({
             message: "Posts Deleted"
@@ -45,7 +53,7 @@ async function deleteAllPosts(req, res, next) {
 
 async function updateExistingPost(req, res, next ) {
     const data = {
-        postId: req.params.postId,
+        postId: parseInt(req.params.postId),
         title: req.body?.title,
         content: req.body?.content
     }
@@ -61,8 +69,18 @@ async function updateExistingPost(req, res, next ) {
 }
 
 async function findPost(req, res, next) {
+
+    const data = {
+        postId: parseInt(req.params.postId)
+    }
     try{
-        const post = await db.findPostbyId({postId: req.params.postId})
+        const post = await db.findPostbyId(data)
+
+        if(!post){
+            return res.status(404).json({
+                message: "Post Not Found"
+            })
+        }
 
         res.status(200).json({
             post: post
@@ -75,6 +93,12 @@ async function findPost(req, res, next) {
 async function findAllPosts(req, res, next) {
     try{
         const posts = await db.findAllPosts()
+
+        if(!posts){
+            res.status(404).json({
+                message: "No Posts available"
+            })
+        }
 
         res.status(200).json({
             posts: posts

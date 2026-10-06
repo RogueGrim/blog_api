@@ -2,7 +2,9 @@ import * as commentController from "../controllers/commentControllers.js"
 import express from "express"
 import { passport } from "../middleware/authentication.js"
 
-const userCommentRouter = express()
+const userCommentRouter = express.Router({
+    mergeParams: true
+})
 
 userCommentRouter.post('/createComment',
     passport.authenticate(

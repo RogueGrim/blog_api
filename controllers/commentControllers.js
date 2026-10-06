@@ -2,8 +2,8 @@ import * as db from "../db/queries/commentQueries.js"
 
 async function createNewComment(req, res, next) {
     const data = {
-        authorId: req.params.authorId,
-        postId: req.params.postId,
+        authorId: parseInt(req.params.userId),
+        postId: parseInt(req.params.postId),
         content: req.body.content
     }
 
@@ -20,8 +20,8 @@ async function createNewComment(req, res, next) {
 
 async function deleteExistingComment(req, res, next) {
     const data = {
-        commentId: req.params.commentId,
-        postId: req.params.postId
+        commentId: parseInt(req.params.commentId),
+        postId: parseInt(req.params.postId)
     }
     try {
         await db.deleteComment(data)
@@ -36,7 +36,7 @@ async function deleteExistingComment(req, res, next) {
 
 async function deleteAllComments(req, res, next) {
     const data = {
-        postId: req.params.postId
+        postId: parseInt(req.params.postId)
     }
     try {
         await db.deleteCommentsByPostId(data)
@@ -51,8 +51,8 @@ async function deleteAllComments(req, res, next) {
 
 async function deleteAllCommentsByAuthor(req, res, next) {
     const data = {
-        authorId: req.params.authorId,
-        postId: req.params.postId
+        authorId: parseInt(req.params.userId),
+        postId: parseInt(req.params.postId)
     }
     try {
         await db.deleteCommentsByAuthorId(data)
@@ -67,8 +67,8 @@ async function deleteAllCommentsByAuthor(req, res, next) {
 
 async function updateExistingComment(req, res, next) {
     const data = {
-        commentId: req.params.commentId,
-        authorId: req.params.authorIdId
+        commentId: parseInt(req.params.commentId),
+        authorId: parseInt(req.params.userId)
     }
     try {
         await db.updateComment(data)
@@ -83,8 +83,8 @@ async function updateExistingComment(req, res, next) {
 
 async function findComment(req, res, next) {
     const data = {
-        commentId: req.params.commentId,
-        postId: req.params.postId
+        commentId: parseInt(req.params.commentId),
+        postId: parseInt(req.params.postId)
     }
     
     try{
@@ -99,8 +99,12 @@ async function findComment(req, res, next) {
 }
 
 async function findAllCommentsOnPost(req, res, next) {
+
+    const data = {
+        postId: parseInt(req.params.postId)
+    }
     try{
-        const comments = await db.findCommentsByPostId({postId: req.params.postId})
+        const comments = await db.findCommentsByPostId(data)
 
         res.status(200).json({
             comments: comments
@@ -111,8 +115,12 @@ async function findAllCommentsOnPost(req, res, next) {
 }
 
 async function findAllCommentsByAuthor(req, res, next) {
+
+    const data = {
+        authorId: parseInt(req.params.userId)
+    }
     try{
-        const comments = await db.findCommentsByAuthorId({authorId: req.params.authorId})
+        const comments = await db.findCommentsByAuthorId(data)
 
         res.status(200).json({
             comments: comments

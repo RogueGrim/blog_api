@@ -1,7 +1,7 @@
 import * as commentController from "../controllers/commentControllers.js"
 import express from "express"
 
-const commentRouter = express()
+const commentRouter = express.Router()
 
 commentRouter.get('/:commentId/findComment', commentController.findComment)
 

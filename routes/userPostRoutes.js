@@ -1,8 +1,11 @@
 import express from "express"
 import { passport } from "../middleware/authentication.js"
 import * as postController from "../controllers/postControllers.js"
+import { postAuthorization } from "../middleware/authorization.js"
 
-const userPostRouter = express()
+const userPostRouter = express.Router({
+    mergeParams: true
+})
 
 userPostRouter.post('/createPost', 
     passport.authenticate(
@@ -17,6 +20,7 @@ userPostRouter.delete('/:postId/deletePost',
         "jwt",
         {session: false}
     ),
+    postAuthorization,
     postController.deletePost   
 )
 

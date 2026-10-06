@@ -27,13 +27,13 @@ app.use("/", userRouter)
 app.use('/posts', postRouter)
 
 //routes for posts related to user
-app.use("/users/:userId/posts", userPostRouter)
+app.use("/users/posts", userPostRouter)
 
 //routes for all comments
 app.use("/comments", commentRouter)
 
 //routes for comments of user under a post
-app.use("/users/:userId/posts/:postId/comments", userCommentRouter)
+app.use("/users/posts/:postId/comments", userCommentRouter)
 
 app.use((err, req, res, next) => {
     res.status(500).json({

@@ -21,8 +21,7 @@ async function login(req, res, next ) {
     })
 
     res.json({
-        message: "Login Sucessful!",
-        token: token
+        message: "Login Sucessful!"
     })
 }
 
