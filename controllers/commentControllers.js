@@ -2,7 +2,7 @@ import * as db from "../db/queries/commentQueries.js"
 
 async function createNewComment(req, res, next) {
     const data = {
-        authorId: parseInt(req.params.userId),
+        authorId: req.user.id,
         postId: parseInt(req.params.postId),
         content: req.body.content
     }
@@ -49,26 +49,10 @@ async function deleteAllComments(req, res, next) {
     }
 }
 
-async function deleteAllCommentsByAuthor(req, res, next) {
-    const data = {
-        authorId: parseInt(req.params.userId),
-        postId: parseInt(req.params.postId)
-    }
-    try {
-        await db.deleteCommentsByAuthorId(data)
-
-        res.status(200).json({
-            message: "Comments Deleted"
-        })
-    }catch(err) {
-        next(err)
-    }
-}
-
 async function updateExistingComment(req, res, next) {
     const data = {
         commentId: parseInt(req.params.commentId),
-        authorId: parseInt(req.params.userId)
+        authorId: req.user.id
     }
     try {
         await db.updateComment(data)
@@ -134,7 +118,6 @@ export {
     createNewComment,
     deleteExistingComment,
     deleteAllComments,
-    deleteAllCommentsByAuthor,
     updateExistingComment,
     findComment,
     findAllCommentsOnPost,

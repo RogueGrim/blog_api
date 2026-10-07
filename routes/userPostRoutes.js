@@ -37,6 +37,7 @@ userPostRouter.put(':postId/updatePost',
         "jwt",
         {session: false}
     ),
+    postAuthorization,
     postController.updateExistingPost
 )
 

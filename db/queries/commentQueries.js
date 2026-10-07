@@ -44,19 +44,12 @@ async function findCommentsByPostId(data) {
 async function deleteComment(data) {
     await prisma.comment.delete({
         where: {
-            id: data.CommentId,
+            id: data.commentId,
             postId: data.postId
         }
     })
 }
 
-async function deleteCommentsbyAuthorId(data) {
-    await prisma.comment.deleteMany({
-        where: {
-            authorId: data.authorId
-        }
-    })
-}
 
 async function deleteCommentsByPostId(data) {
     await prisma.comment.deleteMany({
@@ -85,7 +78,6 @@ export {
     findCommentsByAuthorId,
     findCommentsByPostId,
     deleteComment,
-    deleteCommentsbyAuthorId,
     deleteCommentsByPostId,
     updateComment
 }

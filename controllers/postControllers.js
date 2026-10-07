@@ -38,8 +38,9 @@ async function deletePost(req, res, next) {
 async function deleteAllPosts(req, res, next) {
 
     const data = {
-        authorId: parseInt(req.params.userId)
+        authorId: req.user.id
     }
+
     try{
         await db.deletePostsByAuthorId(data)
 
@@ -54,8 +55,8 @@ async function deleteAllPosts(req, res, next) {
 async function updateExistingPost(req, res, next ) {
     const data = {
         postId: parseInt(req.params.postId),
-        title: req.body?.title,
-        content: req.body?.content
+        title: req.body.title,
+        content: req.body.content
     }
     try {
         await db.updatePost(data)

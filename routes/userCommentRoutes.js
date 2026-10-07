@@ -1,6 +1,7 @@
 import * as commentController from "../controllers/commentControllers.js"
 import express from "express"
 import { passport } from "../middleware/authentication.js"
+import { commentAuthorization, postAuthorization } from "../middleware/authorization.js"
 
 const userCommentRouter = express.Router({
     mergeParams: true
@@ -19,6 +20,7 @@ userCommentRouter.delete('/:commentId/deleteComment',
         "jwt",
         {session: false }
     ),
+    commentAuthorization,
     commentController.deleteExistingComment
 )
 
@@ -27,15 +29,8 @@ userCommentRouter.delete('/deleteAllComments',
         "jwt",
         {session: false }
     ),
+    postAuthorization,
     commentController.deleteAllComments
-)
-
-userCommentRouter.delete('/deleteCommentByUser',
-    passport.authenticate(
-        "jwt",
-        {session: false}
-    ),
-    commentController.deleteAllCommentsByAuthor
 )
 
 userCommentRouter.put('/:commentId/updateComment',
@@ -43,6 +38,7 @@ userCommentRouter.put('/:commentId/updateComment',
         "jwt",
         {session: false}
     ),
+    commentAuthorization,
     commentController.updateExistingComment
 )
 

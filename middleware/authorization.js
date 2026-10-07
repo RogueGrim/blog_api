@@ -19,12 +19,14 @@ async function postAuthorization(req, res, next){
             message: "User is unauthorized"
         })
     }
+    
+    next()
 }
 
 async function  commentAuthorization(req, res, next) {
     const comment = await prisma.comment.findUnique({
         where: {
-            id: parseInt(req.params.postId)
+            id: parseInt(req.params.commentId)
         }
     })
 
@@ -39,6 +41,8 @@ async function  commentAuthorization(req, res, next) {
             message: "User is unauthorized"
         })
     }
+
+    next()
 }
 
 export { postAuthorization, commentAuthorization } 
