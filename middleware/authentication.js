@@ -1,7 +1,6 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import jwt from "jsonwebtoken";
+import { Strategy as JwtStrategy } from "passport-jwt";
 import bcrypt from "bcryptjs";
 import { prisma } from "../lib/prisma.js"
 
@@ -14,7 +13,7 @@ passport.use(
                 },
             })
 
-            if(username == "Admin" && password == "admin@123") {
+            if(username == "admin" && password == "admin@123") {
                 return done(null, user)
             }
 
@@ -22,7 +21,7 @@ passport.use(
                 return done(null, false, { message: "User Not Found"})
             }
 
-            const match = bcrypt.compare(password, user.password)
+            const match = await bcrypt.compare(password, user.password)
 
             if(!match) {
                 return done(null, false, { message: "Invalid Password"})
